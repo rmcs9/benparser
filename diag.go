@@ -63,13 +63,13 @@ func readIn() string {
 func Launcher(val Benval, s string) {
 	t := val.Kind()
 
-	if t == 0 {
+	if t == Map {
 		BencodeDiagnostics(val.(Benmap), s)
-	} else if t == 1 {
+	} else if t == List {
 		listD(val.(Benlist), s)
-	} else if t == 2 {
+	} else if t == String {
 		bytesD(val.(Benstring), s)
-	} else if t == 3 {
+	} else if t == Int {
 		intD(val.(Benint), s)
 	}
 }
