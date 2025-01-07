@@ -6,6 +6,11 @@ import (
 	"strconv"
 )
 
+func collect_bytes() []byte {
+    p := fm.GetPoint()
+    defer fm.ResetPointer(p)
+    return get_bytes()
+}
 
 func get_bytes() []byte {
 	if fm.Peek(0) == 'd' {
@@ -24,9 +29,11 @@ func get_dict() []byte {
 	bytes = append(bytes, fm.Pop(1)...)
 
 	for fm.Peek(0) != 'e' {
-		bytes = append(bytes, get_other()...)
+        key := get_other()
+		bytes = append(bytes, key...)
 
-		bytes = append(bytes, get_bytes()...)
+        val := get_bytes()
+		bytes = append(bytes, val...)
 	}
 
 	bytes = append(bytes, fm.Pop(1)...)
