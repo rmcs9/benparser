@@ -1,4 +1,4 @@
-package bencode
+package benparser
 
 import (
 	"fmt"
