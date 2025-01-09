@@ -14,6 +14,10 @@ func (b Benmap) Kind() byte {
     return 0
 }
 
+func (b Benmap) Raw() []byte {
+    return b.raw
+}
+
 func (b Benmap) Keys() []string {
     keys := make([]string, 0)
 
@@ -38,6 +42,10 @@ func (b Benlist) Kind() byte {
     return 1
 }
 
+func (b Benlist) Raw() []byte {
+    return b.raw
+}
+
 func (b Benlist) Len() int {
     return len(b.vallist)
 }
@@ -55,7 +63,9 @@ type Benstring struct {
 func (b Benstring) Kind() byte {
     return 2
 }
-
+func (b Benstring) Raw() []byte {
+    return b.raw
+}
 func (b Benstring) Get() []byte {
     return b.valstring
 }
@@ -68,6 +78,10 @@ type Benint struct {
 
 func (b Benint) Kind() byte {
     return 3
+}
+
+func (b Benint) Raw() []byte {
+    return b.raw
 }
 
 func (b Benint) Get() int64 {
