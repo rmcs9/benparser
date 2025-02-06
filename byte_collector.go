@@ -68,7 +68,7 @@ func get_other() []byte {
 	numOfBytes, err := strconv.Atoi(string(b))
 	
 	if err != nil {
-		log.Fatal(err)
+		log.Fatal("unable to resolve key length in bencode file at position ", fm.GetPoint())
 	}
 
 	b = fm.Pop(numOfBytes)

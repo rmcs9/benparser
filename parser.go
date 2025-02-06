@@ -14,7 +14,7 @@ func ParseFile(path string) Benval {
 	//read the file 
 	file, err := os.ReadFile(path)
 	if err != nil {
-		log.Fatal(err)
+        log.Fatal("unable to read file:", path, "\n", err)
 	}
 
 	//create a new filemanager object
@@ -93,7 +93,7 @@ func parseInt() Benint {
 	//convert the bytes to an int and return
     numint, err := strconv.Atoi(string(num))
 	if err != nil {
-		log.Fatal(err)
+        log.Fatal("unable to parse bencode int: ", string(num))
 	}
 	return Benint{ int64(numint), bytes }
 }
@@ -101,7 +101,6 @@ func parseInt() Benint {
 //parses a bencode list, which is encoded as follows:
 // lvaluevaluevaluevalue...e where value can be any valid bencode type
 func parseList() Benlist {
-    //TODO get raw bytes
     bytes := collect_bytes()
 
 	//absorb the l
@@ -126,7 +125,7 @@ func parseKey() string {
 	//obtain the length of the bytestring
 	numOfBytes, err := strconv.Atoi(string(fm.Pop(i)))
 	if err != nil {
-		log.Fatal(err)
+		log.Fatal("unable to parse the length of the key at position ", fm.GetPoint())
 	}
 	//absorb the colon
 	fm.Absorb(1)
@@ -138,7 +137,7 @@ func parseByteString() Benstring {
 	i := fm.Find(':')
 	numOfBytes, err := strconv.Atoi(string(fm.Pop(i)))
 	if err != nil {
-		log.Fatal(err)
+		log.Fatal("unable to parse the length of the bencode bytestring at position ", fm.GetPoint())
 	}
 
 	fm.Absorb(1)
